@@ -48,14 +48,22 @@ public class TeacherDAO implements IDAO<Teacher, Long>
     }
 
     @Override
-    public Teacher update(Teacher teacher)
-    {
-return teacher;
+    public Teacher update(Teacher teacher) {
+        try(EntityManager em = emf.createEntityManager()) {
+            em.getTransaction().begin();
+            em.merge(teacher);
+            em.getTransaction().commit();
+        }
+            return teacher;
     }
 
     @Override
-    public void remove(Long id)
-    {
-
+    public void remove(Long id) {
+        try(EntityManager em = emf.createEntityManager()){
+            Teacher teacher = em.find(Teacher.class, id);
+            em.getTransaction().begin();
+            em.remove(teacher);
+            em.getTransaction().commit();
+        }
     }
 }

@@ -1,6 +1,7 @@
 package app.DAO;
 
 import app.entities.Course;
+import app.entities.Teacher;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.TypedQuery;
@@ -8,16 +9,16 @@ import jakarta.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CourseDAO implements IDAO<Course,Long>
-{
+public class CourseDAO implements IDAO<Course, Long> {
     private final List<Course> courses = new ArrayList<>();
     private static EntityManagerFactory emf;
     private static CourseDAO instance;
 
-    private CourseDAO(){}
+    private CourseDAO() {
+    }
 
-    public static CourseDAO getInstance(EntityManagerFactory _emf){
-        if(emf == null){
+    public static CourseDAO getInstance(EntityManagerFactory _emf) {
+        if (emf == null) {
             emf = _emf;
             instance = new CourseDAO();
         }
@@ -27,7 +28,7 @@ public class CourseDAO implements IDAO<Course,Long>
 
     @Override
     public Course create(Course course) {
-        try(EntityManager em = emf.createEntityManager()){
+        try (EntityManager em = emf.createEntityManager()) {
             em.getTransaction().begin();
             em.persist(course);
             em.getTransaction().commit();
@@ -37,9 +38,8 @@ public class CourseDAO implements IDAO<Course,Long>
 
 
     @Override
-    public List<Course> getAll()
-    {
-        try(EntityManager em = emf.createEntityManager()){
+    public List<Course> getAll() {
+        try (EntityManager em = emf.createEntityManager()) {
             TypedQuery<Course> query = em.createQuery("SELECT courseName FROM Course ", Course.class);
             List<Course> courses = query.getResultList();
             return courses;
@@ -48,13 +48,22 @@ public class CourseDAO implements IDAO<Course,Long>
 
 
     @Override
-    public Course update(Course course)
-    {
-return course;
+    public Course update(Course course) {
+        try (EntityManager em = emf.createEntityManager()) {
+            em.getTransaction().begin();
+            em.merge(course);
+            em.getTransaction().commit();
+        }
+        return course;
     }
 
     @Override
-    public void remove(Long aLong) {
+    public void remove(Long id) {
+        try(EntityManager em = emf.createEntityManager()){
+            Course course = em.find(Course.class, id);
+            em.getTransaction().begin();
+            em.remove(course);
+            em.getTransaction().commit();
+        }
     }
-
 }
