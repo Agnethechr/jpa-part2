@@ -49,13 +49,13 @@ public class StudentDAO implements IDAO<Student, Long>
     }
 
     @Override
-    public void update(Student entity)
+    public Student update(Student student)
     {
-
+return student;
     }
 
     @Override
-    public void remove(Long id)
+    public void remove(Long aLong)
     {
 
     }

@@ -2,9 +2,9 @@ package app.DAO;
 
 import java.util.List;
 
-public interface IDAO<T, ID> {
-    T create(T entity);
+public interface IDAO<T, I> {
+    T create(T t);
     List<T> getAll();
-    void update(T entity);
-    void remove(ID id);
+    T update(T t);
+    void remove(I i);
 }

@@ -8,7 +8,7 @@ import jakarta.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CourseDAO implements IDAO<Course, Long>
+public class CourseDAO implements IDAO<Course,Long>
 {
     private final List<Course> courses = new ArrayList<>();
     private static EntityManagerFactory emf;
@@ -48,14 +48,13 @@ public class CourseDAO implements IDAO<Course, Long>
 
 
     @Override
-    public void update(Course entity)
+    public Course update(Course course)
     {
-
+return course;
     }
 
     @Override
-    public void remove(Long id)
-    {
-
+    public void remove(Long aLong) {
     }
+
 }

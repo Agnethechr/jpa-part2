@@ -48,9 +48,9 @@ public class TeacherDAO implements IDAO<Teacher, Long>
     }
 
     @Override
-    public void update(Teacher entity)
+    public Teacher update(Teacher teacher)
     {
-
+return teacher;
     }
 
     @Override
