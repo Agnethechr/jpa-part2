@@ -34,7 +34,7 @@ public class Course {
     @Column(nullable = false)
     private LocalDate startDate;
 
-    @ManyToMany(mappedBy = "courses", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Student> students = new HashSet<>();
 
     @ManyToOne

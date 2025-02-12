@@ -31,13 +31,9 @@ public class Student {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
-    @ManyToMany
-    @JoinTable(
-            name = "student_courses",
-            joinColumns = @JoinColumn(name = "student_id"),
-            inverseJoinColumns = @JoinColumn(name = "course_id")
-    )
-    private Set<Course> courses = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "course_id", referencedColumnName = "id")
+    private Course course;
 
     @PrePersist
     protected void created(){

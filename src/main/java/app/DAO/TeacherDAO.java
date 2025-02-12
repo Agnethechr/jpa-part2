@@ -1,12 +1,15 @@
 package app.DAO;
 
+import app.entities.Student;
 import app.entities.Teacher;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.TypedQuery;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TeacherDAO implements IDAO<Teacher, Integer>
+public class TeacherDAO implements IDAO<Teacher, Long>
 {
     private final List<Teacher> teachers = new ArrayList<>();
 
@@ -25,21 +28,23 @@ public class TeacherDAO implements IDAO<Teacher, Integer>
 
 
     @Override
-    public Teacher create(Teacher entity)
+    public Teacher create(Teacher teacher)
     {
-        return null;
+        try(EntityManager em = emf.createEntityManager()){
+            em.getTransaction().begin();
+            em.persist(teacher);
+            em.getTransaction().commit();
+        }
+        return teacher;
     }
 
     @Override
-    public Teacher findById(Integer integer)
-    {
-        return null;
-    }
-
-    @Override
-    public List<Teacher> getAll()
-    {
-        return List.of();
+    public List<Teacher> getAll() {
+        try(EntityManager em = emf.createEntityManager()){
+            TypedQuery<Teacher> query = em.createQuery("SELECT t FROM Teacher t ", Teacher.class);
+            List<Teacher> teachers = query.getResultList();
+            return teachers;
+        }
     }
 
     @Override
@@ -49,7 +54,7 @@ public class TeacherDAO implements IDAO<Teacher, Integer>
     }
 
     @Override
-    public void remove(Integer integer)
+    public void remove(Long id)
     {
 
     }
