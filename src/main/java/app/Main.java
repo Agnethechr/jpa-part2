@@ -7,6 +7,7 @@ import app.config.HibernateConfig;
 import app.entities.Course;
 import app.entities.Student;
 import app.entities.Teacher;
+import app.services.Populator;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 
@@ -23,7 +24,9 @@ public class Main
     public static void main(String[] args)
     {
 //create();
-update();
+//update();
+        Populator.populate();
+
 
     }
         private static void create () {

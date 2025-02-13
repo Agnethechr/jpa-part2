@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Getter
+@Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,22 +23,24 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private CourseName courseName;
-
-    @Column(nullable = false)
     private String description;
-
-    @Column(nullable = false)
     private LocalDate endDate;
-
-    @Column(nullable = false)
     private LocalDate startDate;
 
-    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Student> students = new HashSet<>();
 
     @ManyToOne
-    @JoinColumn(name = "teacher_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "teacher_id", referencedColumnName = "id")
     private Teacher teacher;
+
+    public void addStudent(Student student)
+    {
+        this.students.add(student);
+        if (student != null)
+        {
+            student.setCourse(this);
+        }
+    }
 }

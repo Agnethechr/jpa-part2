@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Getter
+@Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,21 +19,16 @@ import java.util.Set;
 public class Student {
     @Id //Primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
     private Long id;
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
-
-    @Column(nullable = false, unique = true)
     private String email;
-
-    @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
     private LocalDateTime updatedAt;
 
     @ManyToOne
-    @JoinColumn(name = "course_id", referencedColumnName = "id")
     private Course course;
 
     @PrePersist
