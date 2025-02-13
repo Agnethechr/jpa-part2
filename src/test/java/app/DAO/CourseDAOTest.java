@@ -69,11 +69,21 @@ class CourseDAOTest
         List<Course> courses = courseDAO.getAll();
         assertEquals(6, courses.size());
     }
-
+    @Test
+    void read() {
+        Course c3 = courseDAO.read(c1.getId());
+        assertNotNull(c3);
+        assertEquals(c1,c3);
+    }
 
     @Test
-    void getAll()
-    {
+    void readUnknow(){
+        Course c3 = courseDAO.read(248L);
+        assertNull(c3);
+    }
+
+    @Test
+    void getAll() {
     }
 
     @Test

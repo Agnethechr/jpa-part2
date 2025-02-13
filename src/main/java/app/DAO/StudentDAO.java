@@ -38,6 +38,14 @@ public class StudentDAO implements IDAO<Student, Long> {
         return student;
     }
 
+    @Override
+    public Student read(Long aLong)
+    {
+        try (EntityManager em = emf.createEntityManager()){
+            return em.find(Student.class, aLong);
+        }
+    }
+
 
     @Override
     public List<Student> getAll() {

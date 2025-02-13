@@ -15,6 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @DynamicUpdate
+@EqualsAndHashCode
 @Entity
 @Table(name = "courses")
 
@@ -28,10 +29,12 @@ public class Course {
     private LocalDate endDate;
     private LocalDate startDate;
 
+    @EqualsAndHashCode.Exclude
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Student> students = new HashSet<>();
 
     @ManyToOne
+    @EqualsAndHashCode.Exclude
     @JoinColumn(name = "teacher_id", referencedColumnName = "id")
     private Teacher teacher;
 

@@ -36,6 +36,14 @@ public class CourseDAO implements IDAO<Course, Long> {
         return course;
     }
 
+    @Override
+    public Course read(Long aLong)
+    {
+        try (EntityManager em = emf.createEntityManager()){
+            return em.find(Course.class, aLong);
+        }
+    }
+
 
     @Override
     public List<Course> getAll() {
