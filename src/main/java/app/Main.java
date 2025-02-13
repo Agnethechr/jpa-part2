@@ -8,11 +8,11 @@ import app.entities.Course;
 import app.entities.Student;
 import app.entities.Teacher;
 import app.services.Populator;
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Main
 {
@@ -25,7 +25,14 @@ public class Main
     {
 //create();
 //update();
-        Populator.populate();
+        System.out.println("Hello, World!");
+
+        List<Course> courseList= Populator.populate();
+        courseList.forEach(System.out::println);
+
+        Course c1 = courseList.get(0);
+        Course c2 = courseList.get(1);
+        System.out.println("Underviser på c1: " + c1.getTeacher().getName());
 
 
     }
