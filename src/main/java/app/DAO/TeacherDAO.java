@@ -1,3 +1,4 @@
+
 package app.DAO;
 
 import app.entities.Student;
@@ -39,6 +40,14 @@ public class TeacherDAO implements IDAO<Teacher, Long>
     }
 
     @Override
+    public Teacher read(Long aLong)
+    {
+        try (EntityManager em = emf.createEntityManager()){
+            return em.find(Teacher.class, aLong);
+        }
+    }
+
+    @Override
     public List<Teacher> getAll() {
         try(EntityManager em = emf.createEntityManager()){
             TypedQuery<Teacher> query = em.createQuery("SELECT t FROM Teacher t ", Teacher.class);
@@ -54,7 +63,7 @@ public class TeacherDAO implements IDAO<Teacher, Long>
             em.merge(teacher);
             em.getTransaction().commit();
         }
-            return teacher;
+        return teacher;
     }
 
     @Override

@@ -8,11 +8,11 @@ import app.entities.Course;
 import app.entities.Student;
 import app.entities.Teacher;
 import app.services.Populator;
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Main
 {
@@ -23,14 +23,19 @@ public class Main
 
     public static void main(String[] args)
     {
-//create();
-//update();
-        Populator.populate();
+        //create();
+        //update();
 
+        List<Course> courseList= Populator.populate();
+        courseList.forEach(System.out::println);
 
+        Course c1 = courseList.get(0);
+        Course c2 = courseList.get(1);
+        System.out.println("Underviser på c1: " + c1.getTeacher().getName());
     }
-        private static void create () {
-            // 1. Create
+
+    private static void create () {
+        // 1. Create
         Student student = Student.builder()
                 .name("Alice Johnson")
                 .email("alice@example.com")
@@ -56,18 +61,17 @@ public class Main
                 .build();
         teacher= teacherDAO.create(teacher);
         System.out.println(teacher);
-        }
-            private static void update () {
+    }
+
+    private static void update () {
         // 2. update
-            Student student = Student.builder()
-                    .id(1L)
-                    .email("skipper@example.com")
-                    .createdAt(LocalDateTime.now())
-                    .updatedAt(LocalDateTime.now())
-                    .build();
-            student = studentDAO.update(student);
-            System.out.println("3. Updated student" + student);
-        }
-
-
+        Student student = Student.builder()
+                .id(1L)
+                .email("skipper@example.com")
+                .createdAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now())
+                .build();
+        student = studentDAO.update(student);
+        System.out.println("3. Updated student" + student);
+    }
 }

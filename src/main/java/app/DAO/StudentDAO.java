@@ -1,3 +1,4 @@
+
 package app.DAO;
 
 import app.entities.Course;
@@ -36,6 +37,14 @@ public class StudentDAO implements IDAO<Student, Long> {
             em.getTransaction().commit();
         }
         return student;
+    }
+
+    @Override
+    public Student read(Long aLong)
+    {
+        try (EntityManager em = emf.createEntityManager()){
+            return em.find(Student.class, aLong);
+        }
     }
 
 

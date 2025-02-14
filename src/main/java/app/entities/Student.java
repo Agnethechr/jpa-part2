@@ -40,5 +40,4 @@ public class Student {
     protected void update(){
         updatedAt = LocalDateTime.now();
     }
-
 }
